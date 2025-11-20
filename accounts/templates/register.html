@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register | PeerFinder</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #e9eef4;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .form-card {
+            max-width: 550px;
+            margin: 60px auto;
+            padding: 35px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h3 {
+            font-weight: 700;
+        }
+        label {
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-card">
+    <h3 class="text-center mb-4">PeerFinder Registration</h3>
+
+    <!-- ✨ ERROR MESSAGE BLOCK -->
+    {% if error %}
+    <div class="alert alert-danger text-center">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- USERNAME -->
+        <label>Username</label>
+        <input class="form-control mb-3"
+               type="text"
+               name="username"
+               placeholder="Choose a unique username"
+               autocomplete="off"
+               pattern="^[A-Za-z0-9_]{3,20}$"
+               title="Username should only contain letters, numbers, and underscores (3–20 characters)"
+               required>
+
+        <!-- EMAIL -->
+        <label>Email</label>
+        <input class="form-control mb-3"
+               type="email"
+               name="email"
+               placeholder="Enter institute email"
+               autocomplete="off"
+               pattern="^[a-zA-Z0-9._%+-]+@nitdelhi\.ac\.in$"
+               title="Only @nitdelhi.ac.in email is allowed"
+               required>
+
+        <!-- PASSWORD -->
+        <label>Password</label>
+        <input class="form-control mb-3"
+               type="password"
+               name="password"
+               placeholder="Create a strong password"
+               required>
+
+        <hr class="my-4">
+
+        <!-- FULL NAME -->
+        <label>Full Name</label>
+        <input class="form-control mb-3"
+               type="text"
+               name="name"
+               placeholder="Your full name"
+               required>
+
+        <!-- SKILLS -->
+        <label>Skills</label>
+        <input class="form-control mb-3"
+               type="text"
+               name="skills"
+               placeholder="e.g., Python, AI, Web Development"
+               required>
+
+        <!-- INTERESTS -->
+        <label>Interests</label>
+        <input class="form-control mb-3"
+               type="text"
+               name="interests"
+               placeholder="e.g., Hackathons, ML Research"
+               required>
+
+        <!-- YEAR -->
+        <label>Year</label>
+        <select class="form-control mb-3" name="year" required>
+            <option value="">Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+        </select>
+
+        <!-- BRANCH -->
+        <label>Branch</label>
+        <select class="form-control mb-3" name="branch" required>
+            <option value="">Select Branch</option>
+            <option>CSE</option>
+            <option>ECE</option>
+            <option>EEE</option>
+            <option>ME</option>
+            <option>CE</option>
+            <option>Other</option>
+        </select>
+
+        <!-- GENDER -->
+        <label>Gender</label>
+        <select class="form-control mb-4" name="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+            <option>Prefer not to say</option>
+        </select>
+
+        <!-- SUBMIT -->
+        <button class="btn btn-primary w-100 py-2">Register</button>
+
+        <p class="text-center mt-3">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+    </form>
+</div>
+
+</body>
+</html>

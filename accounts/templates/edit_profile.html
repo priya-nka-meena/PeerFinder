@@ -1,0 +1,12 @@
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="name" value="{{ profile.name }}" required><br>
+    <input type="text" name="skills" value="{{ profile.skills }}" required><br>
+    <input type="text" name="interests" value="{{ profile.interests }}" required><br>
+    <input type="text" name="year" value="{{ profile.year }}" required><br>
+    <input type="text" name="branch" value="{{ profile.branch }}" required><br>
+    <input type="text" name="gender" value="{{ profile.gender }}" required><br>
+
+    <button type="submit">Save Changes</button>
+</form>

@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            background: #f3f4f6;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .profile-info p {
+            font-size: 17px;
+            margin: 10px 0;
+            color: #374151;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 22px;
+            font-size: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-edit {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #1e40af;
+        }
+
+        .btn-back {
+            background: #6b7280;
+            color: white;
+            margin-left: 10px;
+        }
+
+        .btn-back:hover {
+            background: #4b5563;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1>{{ profile.name }}'s Profile</h1>
+            </div>
+
+            <div class="profile-info">
+                <p><strong>Username:</strong> {{ profile.user.username }}</p>
+                <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                <p><strong>Skills:</strong> {{ profile.skills }}</p>
+                <p><strong>Interests:</strong> {{ profile.interests }}</p>
+                <p><strong>Year:</strong> {{ profile.year }}</p>
+                <p><strong>Branch:</strong> {{ profile.branch }}</p>
+                <p><strong>Gender:</strong> {{ profile.gender }}</p>
+            </div>
+
+            <a href="{% url 'edit_profile' %}" class="btn btn-edit">Edit Profile</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-back">Back to Dashboard</a>
+        </div>
+    </div>
+
+</body>
+
+</html>
