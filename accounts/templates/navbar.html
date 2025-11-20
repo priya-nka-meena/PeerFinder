@@ -1,0 +1,30 @@
+{% load static %}
+<nav style="
+    background:#1e3a8a;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family: 'Segoe UI', sans-serif;
+">
+    <div style="color:white; font-size:22px; font-weight:bold;">
+        PeerFinder
+    </div>
+
+    <div>
+        <a href="{% url 'home' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Home</a>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Dashboard</a>
+            <a href="{% url 'profile' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">My Profile</a>
+            <a href="{% url 'logout' %}" style="color:white; text-decoration:none; background:#dc2626; padding:8px 12px; border-radius:6px;">
+                Logout
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Login</a>
+            <a href="{% url 'register' %}" style="color:white; text-decoration:none; background:#10b981; padding:8px 12px; border-radius:6px;">
+                Register
+            </a>
+        {% endif %}
+    </div>
+</nav>
