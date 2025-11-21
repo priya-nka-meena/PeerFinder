@@ -1,12 +1,169 @@
-<form method="POST">
-    {% csrf_token %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        background-image: url("{% static 'image/editprofile.png' %}");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: "Segoe UI", sans-serif;
+      }
 
-    <input type="text" name="name" value="{{ profile.name }}" required><br>
-    <input type="text" name="skills" value="{{ profile.skills }}" required><br>
-    <input type="text" name="interests" value="{{ profile.interests }}" required><br>
-    <input type="text" name="year" value="{{ profile.year }}" required><br>
-    <input type="text" name="branch" value="{{ profile.branch }}" required><br>
-    <input type="text" name="gender" value="{{ profile.gender }}" required><br>
+      .container {
+        width: 90%;
+        max-width: 600px;
+        margin: 50px auto;
+        border: 2px solid #673de6; /* container border color */
+        border-radius: 16px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.85); /* semi-transparent container */
+        backdrop-filter: blur(5px); /* optional blur effect */
+      }
 
-    <button type="submit">Save Changes</button>
-</form>
+      .edit-card {
+        background: rgba(255, 255, 255, 0.9); /* slightly transparent card */
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      .edit-card h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #111827;
+      }
+
+      form input {
+        width: 100%;
+        padding: 12px 15px;
+        margin: 10px 0;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+
+      form input:focus {
+        outline: none;
+        border-color: #673de6; /* border color on focus */
+        box-shadow: 0 0 5px rgba(103, 61, 230, 0.5);
+      }
+
+      form button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: none;
+        background: #673de6;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      form button:hover {
+        background: #5029b2;
+      }
+
+      .btn-back {
+        background: #6b7280;
+        margin-left: 12px;
+        padding: 12px 20px;
+        border-radius: 8px;
+        color: white;
+        text-decoration: none;
+        display: inline-block;
+        transition: 0.3s;
+      }
+
+      .btn-back:hover {
+        background: #4b5563;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+      <div class="edit-card">
+        <h2>Edit Profile</h2>
+        <form method="POST">
+          {% csrf_token %}
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value="{{ profile.name }}"
+            required
+          />
+          <input
+            type="text"
+            name="skills"
+            placeholder="Skills (comma separated)"
+            value="{{ profile.skills }}"
+            required
+          />
+          <input
+            type="text"
+            name="interests"
+            placeholder="Interests (comma separated)"
+            value="{{ profile.interests }}"
+            required
+          />
+          <input
+            type="text"
+            name="year"
+            placeholder="Year"
+            value="{{ profile.year }}"
+            required
+          />
+          <input
+            type="text"
+            name="branch"
+            placeholder="Branch"
+            value="{{ profile.branch }}"
+            required
+          />
+          <input
+            type="text"
+            name="gender"
+            placeholder="Gender"
+            value="{{ profile.gender }}"
+            required
+          />
+
+          <button type="submit"><i class="fa fa-save"></i> Save Changes</button>
+          <a href="{% url 'profile' %}" class="btn-back"
+            ><i class="fa fa-arrow-left"></i> Back</a
+          >
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,35 +1,133 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Student Clusters</title>
-    <link rel="stylesheet" href="{% static 'css/peerfinder.css' %}">
-</head>
-<body>
 
-{% block content %}
-<h2 class="mb-4">Student Matching Groups</h2>
+    <style>
+      body {
+        margin: 0;
+        padding: 40px;
+        font-family: "Poppins", sans-serif;
 
-{% for cluster_id, members in clusters.items %}
-<div class="card mb-3 p-3">
+        /* Background Image */
+        background: url("{% static 'image/cluster.png' %}") no-repeat center
+          center fixed;
+        background-size: cover;
 
-    <h5 class="fw-bold">
-        {% if members|length > 1 %}
-            Main Similarity Group
-        {% else %}
-            Isolated Student
-        {% endif %}
-    </h5>
+        /* Gray overlay */
+        position: relative;
+      }
 
-    <ul>
+      /* Soft dim layer */
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(40, 40, 40, 0.35); /* ← adjust darkness here */
+        backdrop-filter: blur(2px);
+        z-index: -1;
+      }
+
+      h2 {
+        text-align: center;
+        color: #673de6;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+      }
+
+      .cluster-card {
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        margin: auto;
+        margin-bottom: 50px;
+        padding: 35px;
+
+        /* Violet glass effect */
+        background: rgba(103, 61, 230, 0.28);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        border: 3px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        transition: transform 0.2s ease-in-out;
+      }
+
+      .cluster-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .cluster-title {
+        color: #673de6;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        text-align: center;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+
+      li {
+        color: #f8f8f8;
+        background: rgba(255, 255, 255, 0.25);
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 12px;
+        font-weight: 600;
+        backdrop-filter: blur(5px);
+      }
+
+      .line {
+        width: 6px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.45);
+        border-radius: 4px;
+        margin: auto;
+        margin-bottom: 35px;
+      }
+    </style>
+  </head>
+
+  <body>
+    {% block content %}
+    <h2>Student Matching Groups</h2>
+
+    {% for cluster_id, members in clusters.items %}
+
+    <div class="cluster-card">
+      <div class="cluster-title">
+        {% if members|length > 1 %} 🌟 Main Similarity Group {% else %} 🔹
+        Isolated Student {% endif %}
+      </div>
+
+      <ul>
         {% for student in members %}
-            <li>{{ student.name }} ({{ student.branch }}, Year {{ student.year }})</li>
+        <li>
+          {{ student.name }} • {{ student.branch }} • Year {{ student.year }}
+        </li>
         {% endfor %}
-    </ul>
+      </ul>
+    </div>
 
-</div>
-{% endfor %}
-{% endblock %}
-
-</body>
+    {% if not forloop.last %}
+    <div class="line"></div>
+    {% endif %} {% endfor %} {% endblock %}
+  </body>
 </html>

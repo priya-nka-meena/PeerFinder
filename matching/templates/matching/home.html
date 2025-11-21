@@ -1,33 +1,140 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Peer Partner Finder</title>
-    <link rel="stylesheet" href="{% static 'css/peerfinder.css' %}">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-</head>
-<body>
 
-{% block content %}
-<div class="container mt-5 text-center">
-    <h2 class="mb-4 fw-bold">Peer Partner Finder</h2>
-    <p class="text-muted mb-4">Find peers with similar skills & interests.</p>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
 
-    <a href="{% url 'matching_clusters' %}" class="btn btn-primary btn-lg m-2">
-        🔍 View Clusters
-    </a>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        font-family: "Poppins", sans-serif;
 
-    <a href="{% url 'matching_graph' %}" class="btn btn-success btn-lg m-2">
-        🌐 View Network Graph
-    </a>
+        /* Background Image */
+        background: url("{% static 'image/peerfinder.png' %}") no-repeat center
+          center fixed;
+        background-size: cover;
 
-    <a href="{% url 'matching_recommendations' request.user.profile.id %}"
-       class="btn btn-warning btn-lg m-2">
-        🤝 View My Recommendations
-    </a>
-</div>
-{% endblock %}
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-</body>
+      /* Grey Glass Container */
+      .glass-box {
+        width: 70%;
+        max-width: 620px;
+        padding: 40px;
+
+        background: rgba(255, 255, 255, 0.25); /* Grey + transparent */
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+
+        border-radius: 20px;
+        border: 2px solid #673de6; /* Purple border */
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+
+        text-align: center;
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      h2 {
+        color: #2d235e;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        color: #4b5563;
+        font-size: 17px;
+        margin-bottom: 28px;
+        font-weight: 500;
+      }
+
+      .btn-custom {
+        width: 240px;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: none;
+        font-weight: 600;
+        color: white;
+        transition: 0.2s ease;
+      }
+
+      .btn-cluster {
+        background-color: #673de6;
+      }
+      .btn-cluster:hover {
+        background-color: #542ec2;
+      }
+
+      .btn-graph {
+        background-color: #4ea1ff;
+      }
+      .btn-graph:hover {
+        background-color: #2f8df6;
+      }
+
+      .btn-rec {
+        background-color: #ffaa3d;
+        color: black;
+      }
+      .btn-rec:hover {
+        background-color: #ff9900;
+        color: black;
+      }
+
+      /* Animation */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    {% block content %}
+
+    <div class="glass-box">
+      <h2>Peer Partner Finder</h2>
+
+      <p class="subtitle">
+        See your matching peers, network graph & recommendations.
+      </p>
+
+      <a
+        href="{% url 'matching_clusters' %}"
+        class="btn btn-custom btn-cluster m-2"
+      >
+        🔍 View Clusters </a
+      ><br />
+
+      <a href="{% url 'matching_graph' %}" class="btn btn-custom btn-graph m-2">
+        🌐 Network Graph </a
+      ><br />
+
+      <a
+        href="{% url 'matching_recommendations' request.user.profile.id %}"
+        class="btn btn-custom btn-rec m-2"
+      >
+        🤝 My Recommendations
+      </a>
+    </div>
+
+    {% endblock %}
+  </body>
 </html>

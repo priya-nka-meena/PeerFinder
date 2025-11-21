@@ -1,30 +1,107 @@
 {% load static %}
-<nav style="
-    background:#1e3a8a;
-    padding:15px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    font-family: 'Segoe UI', sans-serif;
-">
-    <div style="color:white; font-size:22px; font-weight:bold;">
-        PeerFinder
-    </div>
+<nav
+  style="
+    background: linear-gradient(135deg, #673de6, #673de6);
+    padding: 16px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  "
+>
+  <div style="color: black; font-size: 24px; font-weight: 800 ">PeerFinder</div>
 
-    <div>
-        <a href="{% url 'home' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Home</a>
+  <div style="display: flex; align-items: center">
+    <a
+      href="{% url 'home' %}"
+      style="
+        color: white;
+        margin-right: 18px;
+        background: #673de6;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+      "
+      >Home</a
+    >
 
-        {% if user.is_authenticated %}
-            <a href="{% url 'dashboard' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Dashboard</a>
-            <a href="{% url 'profile' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">My Profile</a>
-            <a href="{% url 'logout' %}" style="color:white; text-decoration:none; background:#dc2626; padding:8px 12px; border-radius:6px;">
-                Logout
-            </a>
-        {% else %}
-            <a href="{% url 'login' %}" style="color:white; margin-right:20px; text-decoration:none; font-size:16px;">Login</a>
-            <a href="{% url 'register' %}" style="color:white; text-decoration:none; background:#10b981; padding:8px 12px; border-radius:6px;">
-                Register
-            </a>
-        {% endif %}
-    </div>
+    {% if user.is_authenticated %}
+    <a
+      href="{% url 'dashboard' %}"
+      style="
+        color: white;
+        margin-right: 18px;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        transition: 0.3s;
+      "
+      >Dashboard</a
+    >
+
+    <a
+      href="{% url 'profile' %}"
+      style="
+        color: white;
+        margin-right: 18px;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 14px;
+        border-radius: 8px;
+        transition: 0.3s;
+      "
+      >My Profile</a
+    >
+
+    <a
+      href="{% url 'logout' %}"
+      style="
+        color: white;
+        background: #e63946;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: 0.3s;
+      "
+      >Logout</a
+    >
+    {% else %}
+    <a
+      href="{% url 'login' %}"
+      style="
+        color: white;
+        margin-right: 18px;
+        background: #673de6;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+      "
+      >Login</a
+    >
+
+    <a
+      href="{% url 'register' %}"
+      style="
+        color: white;
+        background: #673de6;
+        padding: 8px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+         font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+      "
+      >Register</a
+    >
+    {% endif %}
+  </div>
 </nav>

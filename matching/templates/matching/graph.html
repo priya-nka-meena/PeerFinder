@@ -1,87 +1,154 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Interactive Peer Network</title>
-    <link rel="stylesheet" href="{% static 'css/peerfinder.css' %}">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <style>
-        #graph svg {
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
+      body {
+        background: url("{% static 'image/graph.png' %}") no-repeat center
+          center fixed;
+        background-size: cover;
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+
+      h2 {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 800;
+        margin-top: 20px;
+        color: #673de6;
+        text-shadow: 2px 2px 10px pink;
+      }
+
+      /* Graph Outer Container */
+      #graph-box {
+        width: 80%;
+        height: 520px;
+        margin: 25px auto;
+        background: rgba(171, 54, 209, 0.18);
+        backdrop-filter: blur(7px);
+        border-radius: 20px;
+        padding: 8px;
+        box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.25);
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Node Circle */
+      circle {
+        stroke: #fff;
+        stroke-width: 2px;
+        cursor: grab;
+      }
+
+      /* Labels */
+      text {
+        fill: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        text-shadow: 1px 1px 3px black;
+      }
     </style>
-</head>
-<body>
+  </head>
 
-{% block content %}
-<h2>Interactive Peer Network</h2>
-<div id="graph"></div>
+  <body>
+    <h2>Interactive Peer Network</h2>
 
-<script>
-    const nodes = {{ nodes|safe }};
-    const links = {{ links|safe }};
+    <div id="graph-box">
+      <div id="graph"></div>
+    </div>
 
-    const width = 800, height = 600;
+    <script>
+      const nodes = {{ nodes|safe }};
+      const links = {{ links|safe }};
 
-    const svg = d3.select("#graph")
+      // Auto responsive size
+      const width = document.getElementById("graph-box").offsetWidth;
+      const height = document.getElementById("graph-box").offsetHeight;
+
+      // 🎨 Color coding based on branch
+      const colorScale = d3.scaleOrdinal()
+        .domain(["CSE", "ECE", "EEE", "ME", "CE"])
+        .range(["#2b0e8aff", "#4dabf7", "#ffd43b", "#69db7c", "#b197fc"]);
+
+      const svg = d3.select("#graph")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-    const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id).distance(100))
-        .force("charge", d3.forceManyBody().strength(-300))
-        .force("center", d3.forceCenter(width/2, height/2));
+      const simulation = d3.forceSimulation(nodes)
+        .force("link", d3.forceLink(links).id(d => d.id).distance(130))
+        .force("charge", d3.forceManyBody().strength(-400))
+        .force("center", d3.forceCenter(width / 2, height / 2));
 
-    const link = svg.append("g")
+      const link = svg.append("g")
         .selectAll("line")
         .data(links)
         .join("line")
-        .attr("stroke", "#999");
+        .attr("stroke", "#ffffff88")
+        .attr("stroke-width", 2);
 
-    const node = svg.append("g")
+      // ⭕ SIMPLE COLORED CIRCLES AS NODES
+      const node = svg.append("g")
         .selectAll("circle")
         .data(nodes)
         .join("circle")
-        .attr("r", 15)
-        .attr("fill", "#69b3a2")
-        .call(d3.drag()
+        .attr("r", 22)
+        .attr("fill", d => colorScale(d.branch))
+        .call(
+          d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)
-            .on("end", dragended));
+            .on("end", dragended)
+        );
 
-    const label = svg.append("g")
+      // Labels
+      const label = svg.append("g")
         .selectAll("text")
         .data(nodes)
         .join("text")
-        .text(d => d.name)
-        .attr("font-size", "12px")
-        .attr("dx", 20)
-        .attr("dy", 4);
+        .text(d => d.name);
 
-    simulation.on("tick", () => {
+      simulation.on("tick", () => {
         link
-            .attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
+          .attr("x1", d => d.source.x)
+          .attr("y1", d => d.source.y)
+          .attr("x2", d => d.target.x)
+          .attr("y2", d => d.target.y);
 
         node
-            .attr("cx", d => d.x)
-            .attr("cy", d => d.y);
+          .attr("cx", d => d.x)
+          .attr("cy", d => d.y);
 
         label
-            .attr("x", d => d.x)
-            .attr("y", d => d.y);
-    });
+          .attr("x", d => d.x + 30)
+          .attr("y", d => d.y + 5);
+      });
 
-    function dragstarted(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
-    function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
-    function dragended(event, d) { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
-</script>
+      // Drag functions
+      function dragstarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      }
 
-{% endblock %}
+      function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+      }
 
-</body>
+      function dragended(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      }
+    </script>
+  </body>
 </html>

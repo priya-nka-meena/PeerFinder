@@ -1,121 +1,185 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Home</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
     <style>
-        body {
-            background: #eef2ff;
-            font-family: 'Segoe UI', sans-serif;
-        }
+      body {
+        background: linear-gradient(to bottom, #f8f9ff, #eef1ff);
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-        }
+      /* HERO SECTION */
+      .hero-container {
+        position: relative;
+        width: 100%;
+        height: 60vh;
+        background: url("{% static 'image/welcome.png' %}") no-repeat
+          center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .hero h1 {
-            font-size: 40px;
-            font-weight: bold;
-            color: #1e3a8a;
-        }
+      .hero-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.45);
+      }
 
-        .hero p {
-            font-size: 20px;
-            margin-top: 10px;
-            color: #374151;
-        }
+      .hero-text {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        color: white;
+        padding: 20px;
+      }
 
-        .btn-start {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 26px;
-            font-size: 18px;
-            background: #2563eb;
-            color: white;
-            border-radius: 10px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
+      .hero-text h1 {
+        font-size: 48px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
 
-        .btn-start:hover {
-            background: #1e40af;
-        }
+      .hero-text p {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
 
-        .features {
-            margin: 50px auto;
-            width: 80%;
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-        }
+      .btn-start {
+        display: inline-block;
+        padding: 14px 28px;
+        font-size: 18px;
+        background: #673de6;
+        color: #fff;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.3s ease;
+      }
 
-        .feature-box {
-            background: white;
-            padding: 25px;
-            width: 30%;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.5s ease-in-out;
-        }
+      .btn-start:hover {
+        background: #4c28b8;
+        transform: scale(1.05);
+      }
 
-        .feature-box h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
-            color: #111827;
-        }
+      /* FEATURES SECTION */
+      .features {
+        width: 90%;
+        margin: 60px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+      }
 
-        .feature-box p {
-            color: #4b5563;
-            font-size: 16px;
-        }
+      .feature-box {
+        width: 300px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+        position: relative;
+      }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
+      .feature-box:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+      }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+      /* ICONS */
+      .icon {
+        font-size: 45px;
+        color: #673de6;
+        margin-bottom: 12px;
+      }
+
+      .feature-box h3 {
+        font-size: 22px;
+        margin-bottom: 8px;
+        color: #1f2937;
+        font-weight: 600;
+      }
+
+      .feature-box p {
+        font-size: 15px;
+        color: #4b5563;
+      }
     </style>
-</head>
 
-<body>
+    <!-- Icons CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
 
+  <body>
     {% include 'navbar.html' %}
 
-    <div class="hero">
+    <!-- HERO -->
+    <div class="hero-container">
+      <div class="hero-text">
         <h1>Welcome to Student Connect</h1>
-        <p>Your personalized dashboard to manage profile, skills & interests</p>
-
+        <p>Your personalized platform to explore, connect and collaborate.</p>
         <a href="{% url 'login' %}" class="btn-start">Get Started</a>
+      </div>
     </div>
 
+    <!-- FEATURES -->
     <div class="features">
-        <div class="feature-box">
-            <h3>Track Your Skills</h3>
-            <p>Maintain and update your technical skillset.</p>
-        </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-chart-line icon"></i>
+        <h3>Track Your Skills</h3>
+        <p>Maintain and update your technical skillset.</p>
+      </div>
 
-        <div class="feature-box">
-            <h3>Connect with Students</h3>
-            <p>Find people with similar interests & goals.</p>
-        </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-people-group icon"></i>
+        <h3>Connect with Students</h3>
+        <p>Find people with similar interests & goals.</p>
+      </div>
 
-        <div class="feature-box">
-            <h3>Easy Profile Management</h3>
-            <p>Edit your details anytime easily.</p>
-        </div>
+      <div class="feature-box">
+        <i class="fa-solid fa-user-pen icon"></i>
+        <h3>Easy Profile Management</h3>
+        <p>Edit your details anytime easily.</p>
+      </div>
     </div>
-
-</body>
+  </body>
+  <!-- FOOTER NAVBAR -->
+<footer
+  style="
+    width: 100%;
+    background: #673de6;
+    padding: 25px 0;
+    margin-top: 60px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+  "
+>
+  <div style="width: 100%;">
+    <div
+      style="
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+      "
+    >
+      © 2025 PeerFinder • All Rights Reserved
+    </div>
+  </div>
+</footer>
 
 </html>
-
