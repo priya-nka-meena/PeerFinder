@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/peerfinder.css' %}">
+
+<div class="container mt-5">
+    <h2 class="fw-bold mb-4">Top Recommendations</h2>
+
+    {% for rec in recommendations %}
+    <div class="card mb-3 p-3">
+        <p class="mb-0">
+            <strong>{{ rec.student.name }}</strong> ({{ rec.student.branch }}) 
+            — Similarity: {{ rec.score }}
+        </p>
+    </div>
+    {% empty %}
+    <p class="text-muted">No recommendations found.</p>
+    {% endfor %}
+</div>

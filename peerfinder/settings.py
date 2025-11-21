@@ -115,8 +115,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+import os
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),  # your root-level static folder
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -131,4 +135,10 @@ EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = "peerfindernitd@gmail.com"
 EMAIL_HOST_PASSWORD = "okhpzwkvbsxpbjnf"   # NOT your normal password
+
+#connecting accounts and matching
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
 

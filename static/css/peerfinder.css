@@ -1,0 +1,237 @@
+/* ======================= */
+/* General Body & Typography */
+/* ======================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f4f8;
+    color: #2c3e50;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Headings */
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+}
+
+h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* ======================= */
+/* Navbar */
+.navbar {
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.navbar .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #ffdd57 !important;
+}
+
+/* ======================= */
+/* Buttons */
+a.btn {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 0.9rem 1.6rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+a.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* ======================= */
+/* Cards (Clusters & Recommendations) */
+.card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card ul {
+    padding-left: 1.5rem;
+}
+
+.card li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+/* ======================= */
+/* Cluster Labels */
+.card h5 {
+    color: #1abc9c;
+}
+
+.card.isolated h5 {
+    color: #e74c3c;
+}
+
+/* ======================= */
+/* Graph Page */
+#graph {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 95%;
+    max-width: 1200px;
+    height: 600px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#graph svg circle {
+    stroke: #2c3e50;
+    stroke-width: 1.5px;
+    cursor: pointer;
+}
+
+#graph svg text {
+    font-family: 'Segoe UI', sans-serif;
+    fill: #34495e;
+    font-size: 12px;
+}
+
+/* ======================= */
+/* Recommendations */
+.card p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* ======================= */
+/* Utility Classes */
+.text-center {
+    text-align: center !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+/* ======================= */
+/* Responsive */
+@media (max-width: 768px) {
+    #graph {
+        height: 450px;
+    }
+
+    a.btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}
+/* ======================= */
+/* Center all headings & content */
+body, html {
+    text-align: center;
+}
+
+.container, .card {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Optional: also center all lists inside cards */
+.card ul {
+    list-style-position: inside;
+    padding-left: 0;
+    text-align: left; /* if you want list items left-aligned inside centered card */
+}
+
+/* Ensure buttons are centered */
+a.btn {
+    display: inline-block;
+}
+
+
+/* dashboard */
+/* ======================= */
+/* General body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa; /* light grey background */
+    text-align: center;         /* center everything by default */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar customization */
+.navbar {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.navbar .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.navbar .nav-link {
+    margin-left: 10px;
+    font-weight: 500;
+    color: #fff !important;
+}
+.navbar .nav-link:hover {
+    color: #ffd700 !important; /* golden on hover */
+}
+
+/* Container card for dashboard text */
+.container.mt-5 {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin-top: 80px;
+}
+
+/* Heading */
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Paragraph */
+p.lead {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Button styling */
+.btn-primary {
+    font-size: 1.1rem;
+    padding: 10px 25px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}

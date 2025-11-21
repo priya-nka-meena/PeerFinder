@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Clusters</title>
+    <link rel="stylesheet" href="{% static 'css/peerfinder.css' %}">
+</head>
+<body>
+
+{% block content %}
+<h2 class="mb-4">Student Matching Groups</h2>
+
+{% for cluster_id, members in clusters.items %}
+<div class="card mb-3 p-3">
+
+    <h5 class="fw-bold">
+        {% if members|length > 1 %}
+            Main Similarity Group
+        {% else %}
+            Isolated Student
+        {% endif %}
+    </h5>
+
+    <ul>
+        {% for student in members %}
+            <li>{{ student.name }} ({{ student.branch }}, Year {{ student.year }})</li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endfor %}
+{% endblock %}
+
+</body>
+</html>
