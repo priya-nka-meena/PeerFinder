@@ -5,11 +5,41 @@
     <h2 class="fw-bold mb-4">Top Recommendations</h2>
 
     {% for rec in recommendations %}
-    <div class="card mb-3 p-3">
-        <p class="mb-0">
-            <strong>{{ rec.student.name }}</strong> ({{ rec.student.branch }}) 
-            — Similarity: {{ rec.score }}
-        </p>
+    <div class="card mb-3 p-3 d-flex justify-content-between align-items-center">
+
+        <div>
+            <!-- Clickable Name -->
+            <p class="mb-1">
+                <a href="{% url 'student_profile' rec.user_obj.id %}" 
+                   style="text-decoration:none; font-weight:bold; color:#673de6;">
+                    {{ rec.student.name }}
+                </a>
+                ({{ rec.student.branch }})
+            </p>
+
+            <p class="text-muted mb-0">
+                Similarity Score: {{ rec.score }}
+            </p>
+        </div>
+
+        <div>
+            {% if rec.invite_status == "not_sent" %}
+                <a href="{% url 'send_invitation' rec.user_obj.id %}" 
+                   class="btn btn-primary">
+                    Send Invite
+                </a>
+
+            {% elif rec.invite_status == "pending" %}
+                <span class="badge bg-warning text-dark p-2">Pending</span>
+
+            {% elif rec.invite_status == "approved" %}
+                <span class="badge bg-success p-2">Approved</span>
+
+            {% elif rec.invite_status == "rejected" %}
+                <span class="badge bg-danger p-2">Rejected</span>
+            {% endif %}
+        </div>
+
     </div>
     {% empty %}
     <p class="text-muted">No recommendations found.</p>
