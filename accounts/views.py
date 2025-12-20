@@ -69,41 +69,46 @@ def register(request):
 
 # ---------------------------------------------------
 # VERIFY OTP
-# ---------------------------------------------------
 def verify_otp(request):
     if request.method == "POST":
-        if request.POST['otp'] == str(request.session.get('otp')):
 
-            data = request.session.get('reg_data')
+        # SAFE FETCH
+        otp_session = request.session.get('otp')
+        reg_data = request.session.get('reg_data')
+
+        if not reg_data:
+            return render(request, "verify_otp.html", {"error": "Session expired! Please register again."})
+
+        if request.POST['otp'] == str(otp_session):
 
             user = User.objects.create_user(
-                username=data["username"],
-                email=data["email"],
-                password=data["password"],
+                username=reg_data["username"],
+                email=reg_data["email"],
+                password=reg_data["password"],
             )
 
             Profile.objects.create(
                 user=user,
-                name=data["name"],
-                skills=data["skills"],
-                interests=data["interests"],
-                year=data["year"],
-                branch=data["branch"],
-                gender=data["gender"],
-                contact_number=data["contact_number"],
+                name=reg_data["name"],
+                skills=reg_data["skills"],
+                interests=reg_data["interests"],
+                year=reg_data["year"],
+                branch=reg_data["branch"],
+                gender=reg_data["gender"],
+                contact_number=reg_data["contact_number"],
             )
 
             login(request, user)
 
-            del request.session['reg_data']
-            del request.session['otp']
+            # SAFE DELETE
+            request.session.pop('reg_data', None)
+            request.session.pop('otp', None)
 
             return redirect("dashboard")
 
         return render(request, "verify_otp.html", {"error": "Invalid OTP"})
 
     return render(request, "verify_otp.html")
-
 
 # ---------------------------------------------------
 # LOGIN
@@ -150,24 +155,41 @@ def profile(request):
 # ---------------------------------------------------
 # EDIT PROFILE
 # ---------------------------------------------------
+# @login_required
+# def edit_profile(request):
+#     profile = request.user.profile
+
+#     if request.method == "POST":
+#         profile.name = request.POST["name"]
+#         profile.skills = request.POST["skills"]
+#         profile.interests = request.POST["interests"]
+#         profile.year = request.POST["year"]
+#         profile.branch = request.POST["branch"]
+#         profile.gender = request.POST["gender"]
+#         profile.contact_number = request.POST["contact_number"]
+#         profile.save()
+
+#         return redirect("profile")
+
+#     return render(request, "edit_profile.html", {"profile": profile})
+
 @login_required
 def edit_profile(request):
     profile = request.user.profile
 
     if request.method == "POST":
-        profile.name = request.POST["name"]
-        profile.skills = request.POST["skills"]
-        profile.interests = request.POST["interests"]
-        profile.year = request.POST["year"]
-        profile.branch = request.POST["branch"]
-        profile.gender = request.POST["gender"]
-        profile.contact_number = request.POST["contact_number"]
-        profile.save()
+        profile.name = request.POST.get("name")
+        profile.skills = request.POST.get("skills")
+        profile.interests = request.POST.get("interests")
+        profile.year = request.POST.get("year")
+        profile.branch = request.POST.get("branch")
+        profile.gender = request.POST.get("gender")
+        profile.contact_number = request.POST.get("contact_number")  # SAFE
 
+        profile.save()
         return redirect("profile")
 
     return render(request, "edit_profile.html", {"profile": profile})
-
 
 # ---------------------------------------------------
 # SEND INVITATION
