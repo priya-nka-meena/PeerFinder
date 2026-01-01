@@ -135,7 +135,7 @@ def cluster_students(graph):
 # --------------------------
 # 5️⃣ Recommendations
 # --------------------------
-def recommend_partners(student_id, students, top_n=3):
+def recommend_partners(student_id, students, top_n=5):
     target = next(s for s in students if s['id'] == student_id)
     scores = []
     for s in students:
